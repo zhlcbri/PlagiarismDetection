@@ -9,6 +9,8 @@ namespace PlagiarismDetection
 {
     class Program
     {
+        const string USAGE = "usage: [path to file of synonyms] [path to file1] [path to file2] (optional; default = 3)[tuple size]";
+
         private static List<List<string>> GetNTuples(string file, int n)
         {
             List<List<string>> nTuples = new List<List<string>>();
@@ -97,20 +99,39 @@ namespace PlagiarismDetection
         {
             int count = 0;
 
-            foreach (List<string> t1 in tuples1)
+            var tuples1Copy = new List<List<string>>(tuples1);
+            var tuples2Copy = new List<List<string>>(tuples2);
+
+            var identicalTuples = tuples1Copy.Intersect(tuples2Copy);
+            count += identicalTuples.Count();
+            tuples1Copy.RemoveAll(t => identicalTuples.Contains(t));
+            tuples2Copy.RemoveAll(t => identicalTuples.Contains(t));
+
+            foreach (var t in identicalTuples)
             {
-                foreach (List<string> t2 in tuples2)
+                Console.WriteLine(t + " is found in both tuples");
+            }
+            Console.WriteLine("There are " + count + " identical tuples");
+            Console.WriteLine();
+
+            foreach (var t1 in tuples1Copy)
+            {
+                foreach (var t2 in tuples2Copy)
                 {
-                    if (Match(t1, t2, synonyms))
+                    if (t1.Count > 0 && t2.Count > 0 && Match(t1, t2, synonyms))
                     {
-                        //Console.WriteLine("Matching tuples: ");
-                        //Console.WriteLine(string.Join(" ", t1));
-                        //Console.WriteLine(string.Join(" ", t2));
-                        //Console.WriteLine();
+                        Console.WriteLine(String.Join("; ", t1));
+                        Console.WriteLine(String.Join("; ", t2));
+                        Console.WriteLine("are matches");
+                        Console.WriteLine();
+                        t1.Clear();
+                        t2.Clear();
                         count++;
                     }
                 }
             }
+
+            Console.WriteLine("There are " + (count - identicalTuples.Count()) + " matching tuples");
 
             return count;
         }
@@ -130,13 +151,20 @@ namespace PlagiarismDetection
                     string[] input = line.Split(' ');
                     if (input.Length < 3 || input.Length > 4)
                     {
-                        // TODO print usage instructions
+                        Console.WriteLine(USAGE);
                         continue;
                     }
 
                     string synonymsFile = input[0];
                     string file1 = input[1];
                     string file2 = input[2];
+                    if (String.IsNullOrWhiteSpace(synonymsFile) 
+                        || String.IsNullOrWhiteSpace(file1)
+                        || String.IsNullOrWhiteSpace(file2))
+                    {
+                        Console.WriteLine(USAGE);
+                        continue;
+                    }
 
                     int n = 0;
                     if (input.Length == 4) Int32.TryParse(input[3], out n);
