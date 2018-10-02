@@ -7,10 +7,16 @@ using System.Text.RegularExpressions;
 
 namespace PlagiarismDetection
 {
-    class Program
+    class PlagiarismDetector
     {
         const string USAGE = "usage: [path to file of synonyms] [path to file1] [path to file2] (optional; default = 3)[tuple size]";
 
+        /// <summary>
+        /// Returns a list of N-Tuples (alphanumeric only) extracted from input file
+        /// </summary>
+        /// <param name="file">input file to be parsed</param>
+        /// <param name="n">tuple size</param>
+        /// <returns></returns>
         private static List<List<string>> GetNTuples(string file, int n)
         {
             List<List<string>> nTuples = new List<List<string>>();
@@ -47,8 +53,6 @@ namespace PlagiarismDetection
             {
                 Console.WriteLine(e.ToString());
             }
-
-            Console.WriteLine("There are " + nTuples.Count + " tuples in " + file);
 
             return nTuples;
         }
@@ -107,31 +111,18 @@ namespace PlagiarismDetection
             tuples1Copy.RemoveAll(t => identicalTuples.Contains(t));
             tuples2Copy.RemoveAll(t => identicalTuples.Contains(t));
 
-            foreach (var t in identicalTuples)
-            {
-                Console.WriteLine(t + " is found in both tuples");
-            }
-            Console.WriteLine("There are " + count + " identical tuples");
-            Console.WriteLine();
-
             foreach (var t1 in tuples1Copy)
             {
                 foreach (var t2 in tuples2Copy)
                 {
                     if (t1.Count > 0 && t2.Count > 0 && Match(t1, t2, synonyms))
                     {
-                        Console.WriteLine(String.Join("; ", t1));
-                        Console.WriteLine(String.Join("; ", t2));
-                        Console.WriteLine("are matches");
-                        Console.WriteLine();
                         t1.Clear();
                         t2.Clear();
                         count++;
                     }
                 }
             }
-
-            Console.WriteLine("There are " + (count - identicalTuples.Count()) + " matching tuples");
 
             return count;
         }
