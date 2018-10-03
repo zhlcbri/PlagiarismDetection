@@ -4,7 +4,7 @@ This is a command-line program that performs plagiarism detection using a N-tupl
 
 Since this program/algorithm may end up being used in other contexts such as a website, asynchronous methods are adapted to ensure UI responsiveness when I/O files are large.
 
-Input format: 
+Input: 
 
 ```
 [path to file of synonyms] [path to file1] [path to file2] (optional; default = 3)[tuple size]
@@ -16,7 +16,7 @@ Output:
 Percentage of N-tuples in file1 that appear in file2
 ```
 
-Example input:
+Example input (replace with your local directory):
 
 ```
 Data\syns1.txt Data\file1_1.txt Data\file2_1.txt 3
@@ -56,6 +56,8 @@ mono PlagiarismDetector.exe // run
 * Non-alphanumeric characters are not to be compared
 
 * Numeric characters are not ignored because we could have synonyms like "nine" and "9"
+
+* Each N-tuple can only be marked plagiarized once - that is, once its matching counterpart has been found, we don't search further anymore. 
 
 
 ## Built With
