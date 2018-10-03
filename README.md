@@ -7,10 +7,18 @@ This is a command-line program that performs plagiarism detection using a N-tupl
 
 
 
-Input format: [path to file of synonyms] [path to file1] [path to file2] (optional; default = 3)[tuple size]
+Input format: 
 
+```
+[path to file of synonyms] [path to file1] [path to file2] (optional; default = 3)[tuple size]
+```
 
-Output: Percentage of N-tuples in file1 that appear in file2
+Output: 
+
+```
+Percentage of N-tuples in file1 that appear in file2
+```
+
 
 Example input:
 
@@ -24,21 +32,17 @@ Example output:
 100%
 ```
 
-
-
-
-
-
-
-## Getting Started
-
 ## Running the program on Windows
 
 
 
-Double-click on PlagiarismDetection\PlagiarismDetection\PlagiarismDetector.exe, and input commands in the format indicated above.
+Double-click on PlagiarismDetection\PlagiarismDetector.exe, and input commands in the format indicated above.
+
+
 
 ## Running the program on Mac
+
+
 
 Install [Mono](https://www.mono-project.com/) to compile C#, either from this [download page](https://www.mono-project.com/download/stable/) or using [Homebrew](https://brew.sh/):
 
@@ -51,13 +55,19 @@ brew install mono
 ```
 
 
+
+In the source file directory:
+
+```
+mcs PlagiarismDetector.cs // compile
+mono PlagiarismDetector.exe // run
+```
+
 ## Running the tests
 
 
 
 ## Assumptions
-
-
 
 * Synonym comparison is case-insensitive
 
@@ -70,8 +80,10 @@ brew install mono
 
 ## Built With
 
-
 * .NET Core 2.0
 
 * Visual Studio 2017
 
+
+## Author
+* Lichen (Brittany) Zhang
