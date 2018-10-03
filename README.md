@@ -1,11 +1,8 @@
 # PlagiarismDetection
 
-
-
-
 This is a command-line program that performs plagiarism detection using a N-tuple comparison algorithm allowing for synonyms in the text.
 
-
+Since this program/algorithm may end up being used in other context such as a website, asynchronous methods are adapted to ensure UI responsiveness when I/O files are very large.
 
 Input format: 
 
@@ -18,7 +15,6 @@ Output:
 ```
 Percentage of N-tuples in file1 that appear in file2
 ```
-
 
 Example input:
 
@@ -34,27 +30,15 @@ Example output:
 
 ## Running the program on Windows
 
-
-
 Double-click on PlagiarismDetection\PlagiarismDetector.exe, and input commands in the format indicated above.
-
-
 
 ## Running the program on Mac
 
-
-
 Install [Mono](https://www.mono-project.com/) to compile C#, either from this [download page](https://www.mono-project.com/download/stable/) or using [Homebrew](https://brew.sh/):
 
-
-
 ```
-
 brew install mono
-
 ```
-
-
 
 In the source file directory:
 
@@ -86,4 +70,5 @@ mono PlagiarismDetector.exe // run
 
 
 ## Author
+
 * Lichen (Brittany) Zhang
