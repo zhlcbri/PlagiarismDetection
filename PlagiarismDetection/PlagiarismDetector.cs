@@ -15,9 +15,6 @@ namespace PlagiarismDetector
         /// <summary>
         /// Asynchronously returns a list of N-Tuples (alphanumeric only) extracted from input file
         /// </summary>
-        /// <param name="file">input file to be parsed</param>
-        /// <param name="n">tuple size</param>
-        /// <returns></returns>
         private static async Task<List<List<string>>> GetNTuplesAsync(string file, int n)
         {
             List<List<string>> nTuples = new List<List<string>>();
@@ -89,8 +86,9 @@ namespace PlagiarismDetector
         }
 
         /// <summary>
-        /// Asynchronous helper method that returns true if tuple1 and tuple2 either have all elements identical,
-        /// or have matching synonyms. Returns false otherwise.
+        /// Asynchronous helper method that returns true if tuple1 and tuple2 either 
+        /// have all elements identical or have matching synonyms
+        /// Returns false otherwise
         /// </summary>
         private static async Task<bool> MatchAsync(List<string> tuple1, List<string> tuple2, List<HashSet<string>> synonyms)
         {
@@ -109,7 +107,7 @@ namespace PlagiarismDetector
 
         /// <summary>
         /// Takes in two lists of N-tuples and a list of synonyms set
-        /// and asynchronously returns the number of matching N-tuples found.
+        /// and asynchronously returns the number of matching N-tuples found
         /// </summary>
         private static async Task<int> DetectPlagiarismAsync(List<List<string>> tuples1, List<List<string>> tuples2, List<HashSet<string>> synonyms)
         {
@@ -162,6 +160,9 @@ namespace PlagiarismDetector
             return matchingPercentage;
         }
 
+        /// <summary>
+        /// Entrance of the program
+        /// </summary>
         public static void Main(string[] args)
         {
             double matchingPercentage = double.MinValue;
