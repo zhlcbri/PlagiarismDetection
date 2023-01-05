@@ -16,10 +16,10 @@ Output:
 Percentage of N-tuples in file1 that appear in file2
 ```
 
-Example input (replace with your local directory):
+Example input:
 
 ```
-Data\syns1.txt Data\file1_1.txt Data\file2_1.txt 3
+s.txt f1.txt f2.txt 3
 ```
 
 Example output:
@@ -27,9 +27,6 @@ Example output:
 ```
 100%
 ```
-
-Sample test cases can be found in PlagiarismDetectorTest\bin\Debug\netcoreapp2.0\Data.
-
 ## Running the program on Windows
 
 Double-click on PlagiarismDetection\PlagiarismDetector.exe, and input commands in the format indicated above.
