@@ -8,12 +8,17 @@ using System.Threading.Tasks;
 
 namespace PlagiarismDetector
 {
+    // This is a command line utility that reads in two text files
+    // and displays information about the longest sequence of words that appears in both documents
     public class PlagiarismDetector
     {
         const string USAGE = "usage: [path to file of synonyms] [path to file1] [path to file2] (optional; default = 3)[tuple size]";
 
         /// <summary>
         /// Asynchronously returns a list of N-Tuples (alphanumeric only) extracted from input file
+        ///
+        /// e.g. input file = "one two three four five", n = 3
+        /// nTuples = [[one two three], [two three four], [three four five]]
         /// </summary>
         private static async Task<List<List<string>>> GetNTuplesAsync(string file, int n)
         {
@@ -23,16 +28,20 @@ namespace PlagiarismDetector
             {
                 using (StreamReader input = new StreamReader(file))
                 {
+                    // Read file line by line
                     string line;
                     while ((line = await input.ReadLineAsync()) != null)
                     {
+                        // Remove non-alphanumeric characters from file
                         Regex regex = new Regex("[^a-zA-Z0-9 ]");
                         line = regex.Replace(line.Trim().ToLower(), "");
 
+                        // Convert the line into an array of strings
+                        // Each string is a word
                         string[] words = line.Split(' ');
                         if (n > words.Length)
                         {
-                            Console.WriteLine("n is too large for " + file);
+                            // Console.WriteLine("n is too large for " + file);
                             continue;
                         }
                         for (int i = 0; i < words.Length - (n-1); i++)
@@ -135,6 +144,7 @@ namespace PlagiarismDetector
         /// <summary>
         /// Returns the percentage of N-tuples in file1 that have matching counterparts in file2
         /// Synchronous wrapper for calling asynchronous methods
+        /// No matches shorter than n will be returned
         /// </summary>
         public static double GetMatchingPercentage(string synsFile, string file1, string file2, int n = 3)
         {
